@@ -9,6 +9,7 @@ import {
   faPlus,
   faMagnifyingGlass,
   faBagShopping,
+  faCartShopping,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
@@ -178,202 +179,239 @@ export const VibeLanding: React.FC = () => {
       </header>
 
       {/* ========================================================= */}
-      {/* SECTION 1 : HERO BENTO GRID (Copie exacte de l'architecture) */}
+      {/* SECTION 1 : HERO BANNER JAUNE D'OR & TREND PRODUCTS       */}
+      {/* Style inspiré fidèlement de la maquette eCommerce         */}
       {/* ========================================================= */}
-      <section className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-2 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          {/* --- CARTE GAUCHE PRINCIPALE (Hero Atmosphere) --- */}
-          <div className="lg:col-span-8 bg-[#0D182E] border border-white/10 rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col justify-between min-h-[460px] sm:min-h-[520px]">
-            {/* Image de fond atmosphérique du dîner de réveillon avec bokeh champagne */}
-            <div
-              className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-45 mix-blend-screen scale-105"
-              style={{
-                backgroundImage:
-                  'radial-gradient(circle at 65% 35%, rgba(217, 194, 163, 0.4) 0%, rgba(13, 24, 46, 0.95) 75%), url("https://images.unsplash.com/photo-1543258103-a62bdc069871?auto=format&fit=crop&w=1400&q=80")',
-              }}
-            />
-
-            {/* Gradient assombrissant sur le texte */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080E1A] via-[#080E1A]/40 to-transparent" />
-
-            {/* Haut de carte : Badge pill décoratif */}
-            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D9C2A3]">
-                <RosetteIcon size={14} className="text-[#D9C2A3]" />
-                <span>RÉVEILLON 2026 · ÉCRIN DE DÉCORS & LUMIÈRES</span>
-              </div>
-            </div>
-
-            {/* Bas de carte : Titre imposant et boutons pills */}
-            <div className="relative z-10 mt-24 sm:mt-32 space-y-6">
-              <h1 className="font-sans font-black text-4xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-white max-w-2xl">
-                Illuminez votre nuit <br />
-                <span className="font-serif italic font-normal text-[#D9C2A3]">avec Maison Minuit</span>
-              </h1>
-
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <Link
-                  to="/boutique"
-                  className="h-12 px-7 rounded-full bg-white text-[#080E1A] hover:bg-[#D9C2A3] transition-colors font-bold text-xs uppercase tracking-wider flex items-center justify-center"
-                >
-                  COLLECTION
-                </Link>
-
-                <button
-                  type="button"
-                  onClick={() => navigate('/univers')}
-                  className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
-                  title="Voir les 6 univers"
-                >
-                  <Icon icon={faPlus} className="text-sm" />
-                </button>
-
-                <Link
-                  to="/commande"
-                  className="h-12 px-7 rounded-full bg-[#D9C2A3] text-[#080E1A] hover:bg-white transition-colors font-bold text-xs uppercase tracking-wider flex items-center gap-2"
-                >
-                  <span>COMMANDER</span>
-                  <Icon icon={faArrowUpRightFromSquare} className="text-xs" />
-                </Link>
-              </div>
+      <section className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-2 pb-16 space-y-8">
+        {/* --- GRAND HERO BANNER JAUNE D'OR AVEC ÉCHANCRURE CENTRALE --- */}
+        <div className="relative rounded-[32px] sm:rounded-[44px] bg-[#F6CD3C] text-[#080E1A] p-6 sm:p-12 lg:p-14 shadow-2xl overflow-hidden min-h-[480px] sm:min-h-[520px] flex items-center">
+          {/* Échancrure centrale supérieure décorative avec logo */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 hidden md:block">
+            <div className="bg-[#080E1A] px-7 py-3 rounded-b-3xl border-b border-x border-white/10 flex items-center gap-2 shadow-lg">
+              <RosetteIcon size={20} className="text-[#F6CD3C]" />
+              <span className="font-extrabold text-xs tracking-widest uppercase text-white font-sans">
+                Maison Minuit
+              </span>
             </div>
           </div>
 
-          {/* --- COLONNE DROITE : CARTE SPOTLIGHT PRODUIT --- */}
-          <div className="lg:col-span-4 flex flex-col justify-between gap-5">
-            {/* Carte Produit Spotlight */}
-            <div className="bg-[#0D182E] border border-white/10 rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between flex-1">
-              <div className="flex items-start justify-between">
-                {/* Vignette bijou / pièce de table */}
-                <div className="w-20 h-20 rounded-2xl bg-[#14294A] border border-white/10 overflow-hidden relative flex items-center justify-center">
-                  <div className="absolute inset-0 halo-champagne opacity-70" />
-                  <RosetteIcon size={32} className="text-[#D9C2A3]" />
-                </div>
-
-                {/* Indicateur de position (01 | 04) */}
-                <div className="flex flex-col items-end text-[10px] font-mono text-[#C7CCD1]">
-                  <span>01</span>
-                  <div className="w-px h-8 bg-white/20 my-1" />
-                  <span>04</span>
-                </div>
-              </div>
-
-              <div className="my-6 space-y-2">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#D9C2A3]">
-                  PIÈCE SIGNATURE
+          {/* Grille principale 2 colonnes */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full relative z-10">
+            {/* Colonne Gauche : Titre imposant, texte et boutons capsules */}
+            <div className="lg:col-span-6 space-y-6 pt-6 sm:pt-4">
+              <div className="space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#080E1A]/70 font-mono">
+                  Édition Réveillon · 31 Décembre 2026
                 </span>
-                <h3 className="font-sans font-bold text-xl text-white">
-                  Cierge Or de Minuit
-                </h3>
-                <p className="text-xs text-[#C7CCD1] leading-relaxed">
-                  Cire parfumée coulée à la main, poudroiement d'or 24 carats et flamme à combustion lente.
-                </p>
-                <div className="flex items-center justify-between pt-2">
-                  <span className="font-mono text-2xl font-bold text-white">
-                    28 000 FCFA
+                <h1 className="font-sans font-black text-4xl sm:text-5xl lg:text-[62px] leading-[1.04] tracking-tight text-[#080E1A]">
+                  Coussins Velours <br />
+                  <span className="font-serif italic font-normal text-[#080E1A]/90">
+                    &amp; Lumières Dorées
                   </span>
-                  <Link
-                    to="/produit/p-bougie-or-de-minuit"
-                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#D9C2A3] hover:text-[#080E1A] border border-white/20 flex items-center justify-center text-white transition-all"
-                  >
-                    <Icon icon={faArrowUpRightFromSquare} className="text-xs" />
-                  </Link>
-                </div>
+                </h1>
               </div>
 
-              {/* Bouton pill en bas */}
-              <div className="pt-3 border-t border-white/10">
+              <p className="text-xs sm:text-sm text-[#080E1A]/85 font-medium max-w-md leading-relaxed">
+                Des textures précieuses en velours côtelé et des lueurs tamisées pour faire vibrer votre intérieur et sublimer vos tables de réveillon.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
                 <Link
-                  to="/produit/p-bougie-or-de-minuit"
-                  className="w-full py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-between text-xs text-white transition-colors"
+                  to="/boutique"
+                  className="px-8 py-3.5 rounded-full bg-white text-[#080E1A] hover:bg-[#080E1A] hover:text-white transition-all duration-300 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg"
                 >
-                  <span className="text-[11px] uppercase tracking-wider font-semibold">
-                    Personnaliser pour votre table
-                  </span>
-                  <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px]">
-                    +
-                  </span>
+                  Commander
+                </Link>
+                <Link
+                  to="/univers"
+                  className="px-8 py-3.5 rounded-full bg-[#080E1A] text-white hover:bg-white hover:text-[#080E1A] transition-all duration-300 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg"
+                >
+                  Explorer plus
                 </Link>
               </div>
             </div>
 
-            {/* Slider flèches de commande pour la carte */}
-            <div className="flex items-center justify-end gap-2 pr-1">
-              <button
-                type="button"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
-                aria-label="Article précédent"
-              >
-                <Icon icon={faChevronLeft} className="text-xs" />
-              </button>
-              <button
-                type="button"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
-                aria-label="Article suivant"
-              >
-                <Icon icon={faChevronRight} className="text-xs" />
-              </button>
+            {/* Colonne Droite : Visuel lifestyle avec Hotspot de prix et Badge bleu royal */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-3xl overflow-hidden shadow-2xl bg-[#E8BC2D]">
+                <img
+                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80"
+                  alt="Coussins velours et décor de réveillon"
+                  className="w-full h-full object-cover object-center scale-102"
+                />
+
+                {/* Voile discret */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+
+                {/* Hotspot interactif de prix posé sur le coussin */}
+                <div className="absolute top-[28%] left-[28%] z-20">
+                  <Link
+                    to="/produit/p-chemin-de-table-nocturne"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[#080E1A] text-xs font-bold shadow-xl hover:scale-105 transition-transform"
+                    title="Voir le détail"
+                  >
+                    <span>28 000 FCFA</span>
+                    <span className="w-4 h-4 rounded-full bg-[#080E1A] text-white flex items-center justify-center text-[10px]">
+                      +
+                    </span>
+                  </Link>
+                </div>
+
+                {/* Badge bleu royal flottant avec flèche ronde */}
+                <Link
+                  to="/boutique"
+                  className="absolute bottom-5 left-5 z-20 bg-[#0055D4] hover:bg-[#0043A8] text-white p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl shadow-2xl flex items-center gap-3 transition-transform hover:scale-102 max-w-[240px]"
+                >
+                  <span className="text-xs font-bold leading-tight">
+                    Plus de 44 créations de fête
+                  </span>
+                  <span className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center shrink-0">
+                    <Icon icon={faArrowUpRightFromSquare} className="text-xs" />
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* --- RANGÉE DU BAS : 2 CARTES BENTO SECONDAIRES --- */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 mt-5">
-          {/* Carte B1 : Sur-mesure / Atelier (fond sombre avec rosette) */}
-          <div className="md:col-span-7 bg-[#0D182E] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden">
-            <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-2xl bg-[#14294A] border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
-                <RosetteIcon size={34} />
-              </div>
-              <div className="space-y-1">
-                <span className="text-[11px] uppercase font-mono tracking-widest text-[#C7CCD1]">
-                  Scénographie Exclusive · 31 Décembre
-                </span>
-                <h4 className="font-sans font-bold text-xl sm:text-2xl text-white">
-                  Composez votre propre <br className="hidden sm:block" /> décor de réveillon
-                </h4>
-              </div>
-            </div>
-
-            <Link
-              to="/atelier"
-              className="w-12 h-12 rounded-full bg-white/10 hover:bg-[#D9C2A3] hover:text-[#080E1A] border border-white/20 flex items-center justify-center text-white transition-all shrink-0 self-end sm:self-center"
-            >
-              <Icon icon={faArrowUpRightFromSquare} className="text-sm" />
-            </Link>
-          </div>
-
-          {/* Carte B2 : Carte Warm Champagne (univers préférés avec 3 avatars / vignettes) */}
-          <div className="md:col-span-5 bg-[#D9C2A3] rounded-3xl p-6 sm:p-8 text-[#080E1A] flex flex-col justify-between relative overflow-hidden">
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-sans font-bold text-xs uppercase tracking-[0.2em]">
-                Univers Préférés ●●●
+        {/* --- RANGÉE INFÉRIEURE : TREND PRODUCTS (1 Carte Bleue + 3 Cartes Produits Claires) --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Carte 1 : Highlight Bleu Royal "Trend Products" */}
+          <div className="rounded-[28px] bg-[#0055D4] text-white p-6 relative overflow-hidden flex flex-col justify-between min-h-[340px] shadow-xl group">
+            <div className="relative z-10 space-y-2">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-white/70 font-mono">
+                Collection
               </span>
-              <RosetteIcon size={20} className="text-[#080E1A]" />
+              <h3 className="font-sans font-black text-2xl sm:text-3xl leading-tight text-white">
+                Trend <br />
+                Products
+              </h3>
             </div>
 
-            <div className="flex items-center justify-between gap-4 mt-2">
-              {/* Stack de 3 cercles superposés */}
-              <div className="flex -space-x-4">
-                <div className="w-14 h-14 rounded-full border-2 border-[#D9C2A3] bg-[#0B1528] flex items-center justify-center overflow-hidden text-white font-serif text-sm">
-                  <span>Or</span>
-                </div>
-                <div className="w-14 h-14 rounded-full border-2 border-[#D9C2A3] bg-[#14294A] flex items-center justify-center overflow-hidden text-[#D9C2A3] font-serif text-sm">
-                  <span>Nuit</span>
-                </div>
-                <div className="w-14 h-14 rounded-full border-2 border-[#D9C2A3] bg-[#060F1F] flex items-center justify-center overflow-hidden text-white font-serif text-sm">
-                  <span>Table</span>
-                </div>
-              </div>
+            {/* Silhouette du produit signature en halo */}
+            <div className="my-auto py-2 flex items-center justify-center relative">
+              <div className="w-32 h-32 rounded-full bg-white/10 filter blur-xl absolute inset-0 m-auto pointer-events-none" />
+              <img
+                src="https://images.unsplash.com/photo-1543258103-a62bdc069871?auto=format&fit=crop&w=400&q=80"
+                alt="Produit tendance"
+                className="w-28 h-28 object-cover rounded-2xl shadow-lg relative z-10 group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
 
+            <div className="relative z-10 flex items-center justify-between pt-2">
+              <span className="text-xs font-semibold text-white/80">
+                Sélection festive
+              </span>
               <Link
-                to="/univers"
-                className="w-12 h-12 rounded-full bg-[#080E1A] text-white hover:bg-white hover:text-[#080E1A] flex items-center justify-center transition-all shrink-0"
+                to="/boutique"
+                className="w-11 h-11 rounded-full bg-white/20 group-hover:bg-white group-hover:text-[#0055D4] text-white flex items-center justify-center transition-all shadow-md"
+                title="Découvrir tous les produits tendances"
               >
-                <Icon icon={faArrowUpRightFromSquare} className="text-sm" />
+                <Icon icon={faArrowUpRightFromSquare} className="text-xs" />
               </Link>
             </div>
           </div>
+
+          {/* Cartes 2, 3, 4 : Cartes Produits Épurées Blanches style eCommerce Website That Inspire 20 */}
+          {[
+            {
+              id: 'p-bougie-nuit-blanche',
+              nom: 'Bougie Nuit Blanche pour Dîner de Minuit',
+              slug: 'bougie-nuit-blanche',
+              prix: 28000,
+              note: '5.0',
+              reviews: '14 reviews',
+              image:
+                'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80',
+            },
+            {
+              id: 'p-candelabre-olympe',
+              nom: 'Candélabre Astral Or Antique Grand Format',
+              slug: 'candelabre-olympe',
+              prix: 48000,
+              note: '4.6',
+              reviews: '7 reviews',
+              image:
+                'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
+            },
+            {
+              id: 'p-photophore-aureole',
+              nom: 'Photophore Auréole Fumé & Cire Végétale',
+              slug: 'photophore-aureole',
+              prix: 18000,
+              note: '4.3',
+              reviews: '36 reviews',
+              image:
+                'https://images.unsplash.com/photo-1507499739999-097706ad8914?auto=format&fit=crop&w=600&q=80',
+            },
+          ].map((prod) => {
+            const isFav = !!favorites[prod.id];
+            return (
+              <div
+                key={prod.id}
+                className="rounded-[28px] sm:rounded-[32px] bg-[#F8F9FA] text-[#111827] p-5 sm:p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[350px] border border-black/[0.04] group relative"
+              >
+                {/* Ligne haute : Bouton favori bleu royal dans le coin supérieur gauche */}
+                <div className="flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={(e) => toggleFavorite(prod.id, e)}
+                    className="w-8 h-8 flex items-center justify-center text-[#0055D4] hover:scale-110 transition-transform cursor-pointer -ml-1 -mt-1"
+                    title="Ajouter aux favoris"
+                    aria-label="Ajouter aux favoris"
+                  >
+                    <Icon icon={isFav ? faHeartSolid : faHeartRegular} className="text-base" />
+                  </button>
+                </div>
+
+                {/* Visuel produit centré */}
+                <Link
+                  to={`/produit/${prod.slug}`}
+                  className="h-44 sm:h-50 w-full flex items-center justify-center my-2 overflow-hidden block"
+                >
+                  <img
+                    src={prod.image}
+                    alt={prod.nom}
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </Link>
+
+                {/* Titre 2 lignes, note bleue et prix + panier circulaire noir */}
+                <div className="space-y-1.5 pt-2">
+                  <Link
+                    to={`/produit/${prod.slug}`}
+                    className="font-sans font-semibold text-xs sm:text-[13px] text-[#111827] hover:text-[#0055D4] transition-colors leading-snug line-clamp-2 block"
+                  >
+                    {prod.nom}
+                  </Link>
+
+                  {/* Ligne d'avis en bleu royal style mockup */}
+                  <div className="flex items-center gap-1 text-xs text-[#0055D4] font-medium pt-0.5">
+                    <Icon icon={faStar} className="text-[11px] text-[#0055D4]" />
+                    <span>{prod.note}</span>
+                    <span className="text-[#0055D4]/80">({prod.reviews})</span>
+                  </div>
+
+                  {/* Ligne inférieure : Prix et bouton rond noir panier */}
+                  <div className="flex items-center justify-between pt-2">
+                    <span className="font-sans font-bold text-base sm:text-lg text-[#111827]">
+                      {formatPrix(prod.prix)}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={(e) => handleQuickAdd(prod.id, prod.nom, e)}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#111827] hover:bg-[#0055D4] text-white flex items-center justify-center transition-colors shadow-md cursor-pointer shrink-0"
+                      title="Ajouter au panier"
+                      aria-label="Ajouter au panier"
+                    >
+                      <Icon icon={faCartShopping} className="text-xs" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -449,119 +487,80 @@ export const VibeLanding: React.FC = () => {
           ))}
         </div>
 
-        {/* Grille de 4 cartes haut de gamme */}
+        {/* Grille de 4 cartes haut de gamme style eCommerce Website That Inspire 20 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((produit, idx) => {
             const isLiked = Boolean(favorites[produit.id]);
-            // La 3ème carte a le look de mise en avant "Frost Bite Grillz" dans le design
-            const isSpecialHighlight = idx === 2;
 
             return (
               <div
                 key={produit.id}
-                className={`rounded-3xl border transition-all duration-400 p-5 flex flex-col justify-between group ${
-                  isSpecialHighlight
-                    ? 'bg-[#121E36] border-[#D9C2A3]/50 shadow-xl'
-                    : 'bg-[#0D182E] border-white/10 hover:border-white/25'
-                }`}
+                className="rounded-[28px] sm:rounded-[32px] bg-[#F8F9FA] text-[#111827] p-5 sm:p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[350px] border border-black/[0.04] group relative"
               >
-                {/* Haut : Boutons ronds (Lien ↗ et Coeur ♡) */}
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <Link
-                      to={`/produit/${produit.slug}`}
-                      className="w-9 h-9 rounded-full bg-white/5 hover:bg-white hover:text-[#080E1A] border border-white/15 flex items-center justify-center text-white transition-all"
-                      title="Voir les détails"
-                    >
-                      <Icon icon={faArrowUpRightFromSquare} className="text-xs" />
-                    </Link>
+                {/* Ligne haute : Bouton favori bleu royal dans le coin supérieur gauche */}
+                <div className="flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={(e) => toggleFavorite(produit.id, e)}
+                    className="w-8 h-8 flex items-center justify-center text-[#0055D4] hover:scale-110 transition-transform cursor-pointer -ml-1 -mt-1"
+                    title="Ajouter aux favoris"
+                    aria-label="Ajouter aux favoris"
+                  >
+                    <Icon icon={isLiked ? faHeartSolid : faHeartRegular} className="text-base" />
+                  </button>
+                </div>
+
+                {/* Visuel produit centré */}
+                <Link
+                  to={`/produit/${produit.slug}`}
+                  className="h-44 sm:h-50 w-full flex items-center justify-center my-2 overflow-hidden block"
+                >
+                  {produit.images && produit.images[0] ? (
+                    <img
+                      src={produit.images[0]}
+                      alt={produit.nom}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
+                      <RosetteIcon size={36} className="text-[#080E1A]/40 mb-2" />
+                      <span className="font-serif italic text-sm text-[#080E1A]/60">Maison Minuit</span>
+                    </div>
+                  )}
+                </Link>
+
+                {/* Titre 2 lignes, note bleue et prix + panier circulaire noir */}
+                <div className="space-y-1.5 pt-2">
+                  <Link
+                    to={`/produit/${produit.slug}`}
+                    className="font-sans font-semibold text-xs sm:text-[13px] text-[#111827] hover:text-[#0055D4] transition-colors leading-snug line-clamp-2 block"
+                  >
+                    {produit.nom} {produit.accroche ? `— ${produit.accroche}` : ''}
+                  </Link>
+
+                  {/* Ligne d'avis en bleu royal style mockup */}
+                  <div className="flex items-center gap-1 text-xs text-[#0055D4] font-medium pt-0.5">
+                    <Icon icon={faStar} className="text-[11px] text-[#0055D4]" />
+                    <span>5.0</span>
+                    <span className="text-[#0055D4]/80">({14 + (idx * 4)} reviews)</span>
+                  </div>
+
+                  {/* Ligne inférieure : Prix et bouton rond noir panier */}
+                  <div className="flex items-center justify-between pt-2">
+                    <span className="font-sans font-bold text-base sm:text-lg text-[#111827]">
+                      {formatPrix(produit.prix)}
+                    </span>
 
                     <button
                       type="button"
-                      onClick={(e) => toggleFavorite(produit.id, e)}
-                      className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
-                        isLiked
-                          ? 'bg-[#C1121F] border-[#C1121F] text-white'
-                          : 'bg-white/5 border-white/15 text-white/70 hover:text-white hover:bg-white/15'
-                      }`}
-                      aria-label="Ajouter aux favoris"
+                      onClick={(e) => handleQuickAdd(produit.id, produit.nom, e)}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#111827] hover:bg-[#0055D4] text-white flex items-center justify-center transition-colors shadow-md cursor-pointer shrink-0"
+                      title="Ajouter au panier"
+                      aria-label="Ajouter au panier"
                     >
-                      <Icon icon={isLiked ? faHeartSolid : faHeartRegular} className="text-xs" />
+                      <Icon icon={faCartShopping} className="text-xs" />
                     </button>
                   </div>
-
-                  {/* Badges pills */}
-                  <div className="flex items-center gap-1.5 mb-4">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#D9C2A3]/15 text-[#D9C2A3] text-[10px] font-mono uppercase tracking-wider">
-                      {idx % 2 === 0 ? 'Signature' : 'Sélection'}
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-white/80 text-[10px] font-mono uppercase tracking-wider">
-                      {produit.univers_id ? produit.univers_id.replace('u-', '').replace(/-/g, ' ') : 'Édition 2026'}
-                    </span>
-                  </div>
-
-                  {/* Vignette image */}
-                  <Link
-                    to={`/produit/${produit.slug}`}
-                    className="block aspect-[4/5] rounded-2xl bg-[#060F1F] border border-white/10 overflow-hidden relative mb-5 group-hover:scale-[1.02] transition-transform"
-                  >
-                    {produit.images && produit.images[0] ? (
-                      <img
-                        src={produit.images[0]}
-                        alt={produit.nom}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                        <RosetteIcon size={36} className="text-[#D9C2A3]/60 mb-2" />
-                        <span className="font-serif italic text-sm text-[#D9C2A3]/80">Maison Minuit</span>
-                      </div>
-                    )}
-                  </Link>
-                </div>
-
-                {/* Bas de carte */}
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="font-sans font-bold text-lg text-white group-hover:text-[#D9C2A3] transition-colors line-clamp-1">
-                      {produit.nom}
-                    </h3>
-                    <p className="text-[11px] text-[#C7CCD1] line-clamp-2 mt-1 leading-relaxed">
-                      {produit.description_courte}
-                    </p>
-                  </div>
-
-                  {isSpecialHighlight ? (
-                    <div className="pt-2 flex items-center gap-2">
-                      <Link
-                        to={`/produit/${produit.slug}`}
-                        className="flex-1 py-3 px-4 rounded-full bg-white text-[#080E1A] hover:bg-[#D9C2A3] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
-                      >
-                        <span>EN SAVOIR PLUS</span>
-                        <Icon icon={faArrowRight} className="text-xs" />
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                      <div>
-                        <span className="font-mono text-base font-bold text-white">
-                          {formatPrix(produit.prix)}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1 text-[11px] text-[#D9C2A3] font-mono">
-                        <Icon icon={faStar} className="text-[10px]" />
-                        <span>4.95</span>
-                      </div>
-                    </div>
-                  )}
-
-                  <button
-                    type="button"
-                    onClick={(e) => handleQuickAdd(produit.id, produit.nom, e)}
-                    className="w-full py-2.5 rounded-full bg-white/5 hover:bg-white/20 border border-white/10 text-xs font-semibold text-white/90 transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>+ Ajouter à ma sélection</span>
-                  </button>
                 </div>
               </div>
             );
