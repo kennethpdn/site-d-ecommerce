@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /commande/
+Disallow: /commande/confirmation
+
+Sitemap: https://maisonminuit.com/sitemap.xml
