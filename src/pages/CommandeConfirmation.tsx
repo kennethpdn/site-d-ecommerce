@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faCheck, faCopy, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText } from '../motion';
 import { Icon } from '../components/common/Icon';
 import { formatPrix, NUMERO_WHATSAPP } from '../config';
 import { useCart } from '../context/CartContext';
@@ -72,9 +72,11 @@ export const CommandeConfirmation: React.FC = () => {
           Réservation validée
         </span>
 
-        <h1 className="title-fluid-section font-display text-[#E8ECEF] mb-4">
-          Merci. Votre commande est enregistrée.
-        </h1>
+        <RevealText
+          as="h1"
+          text="Merci. Votre commande est enregistrée."
+          className="title-fluid-section font-display text-[#E8ECEF] mb-4"
+        />
 
         <p className="font-mono text-base text-[#D9C2A3] mb-6 tracking-wider">
           Référence : {commande.numero}

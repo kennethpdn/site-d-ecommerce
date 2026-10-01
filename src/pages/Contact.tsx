@@ -3,7 +3,7 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
 import { SectionTitle } from '../components/common/SectionTitle';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText } from '../motion';
 import { Button } from '../components/common/Button';
 import { Icon } from '../components/common/Icon';
 import { NUMERO_WHATSAPP } from '../config';
@@ -48,11 +48,9 @@ export const Contact: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
         {/* Colonne gauche : Canaux directs */}
-        <div className="lg:col-span-5 space-y-6">
+        <Reveal delay={0.1} className="lg:col-span-5 space-y-6">
           <div className="p-8 bg-[#14294A] border border-argent-20 space-y-6">
-            <h3 className="font-display text-2xl text-[#E8ECEF]">
-              Nos Canaux Privilégiés
-            </h3>
+            <RevealText as="h3" text="Nos Canaux Privilégiés" className="font-display text-2xl text-[#E8ECEF]" />
 
             {/* WhatsApp */}
             <div className="pt-2">
@@ -96,26 +94,24 @@ export const Contact: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Colonne droite : Formulaire simple */}
-        <div className="lg:col-span-7">
+        <Reveal delay={0.2} className="lg:col-span-7">
           <div className="p-8 bg-[#14294A] border border-argent-20">
             {sent ? (
               <div className="py-12 text-center space-y-3">
                 <div className="w-12 h-12 border border-[#D9C2A3] flex items-center justify-center mx-auto text-[#D9C2A3] mb-4">
                   <Icon icon={faCheck} className="text-lg" />
                 </div>
-                <h3 className="font-display text-2xl text-[#E8ECEF]">Message transmis</h3>
+                <RevealText as="h3" text="Message transmis" className="font-display text-2xl text-[#E8ECEF]" />
                 <p className="text-sm text-[#C7CCD1]">
                   Notre conciergerie a bien reçu votre demande et vous répondra sous quelques heures.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <h3 className="font-display text-2xl text-[#E8ECEF] mb-6">
-                  Transmettre une demande
-                </h3>
+                <RevealText as="h3" text="Transmettre une demande" className="font-display text-2xl text-[#E8ECEF] mb-6" />
 
                 <div>
                   <label className="block text-xs uppercase tracking-wider text-[#C7CCD1] mb-2 font-mono">
@@ -177,7 +173,7 @@ export const Contact: React.FC = () => {
               </form>
             )}
           </div>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

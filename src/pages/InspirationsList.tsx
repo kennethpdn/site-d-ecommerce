@@ -16,6 +16,7 @@ import { SEO } from '../components/common/SEO';
 import { Icon } from '../components/common/Icon';
 import { getArticles } from '../lib/supabase';
 import { Article } from '../types';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 
 // Images d'ambiance et de scénographie sélectionnées
 const ARTICLE_IMAGES = [
@@ -111,9 +112,11 @@ export const InspirationsList: React.FC = () => {
         </div>
 
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 text-center space-y-3 relative z-10">
-          <h1 className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-white">
-            Le Carnet d'Inspirations
-          </h1>
+          <RevealText
+            as="h1"
+            text="Le Carnet d'Inspirations"
+            className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-white"
+          />
           <nav className="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-[#8E95A5]">
             <Link to="/" className="hover:text-white transition-colors">
               Accueil
@@ -131,12 +134,16 @@ export const InspirationsList: React.FC = () => {
         {/* En-tête de section avec onglets capsules horizontaux */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-white/10">
           <div>
-            <span className="text-[11px] uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
-              ✦ ÉDITIONS & RITUELS DE MINUIT
-            </span>
-            <h2 className="font-sans font-black text-2xl sm:text-4xl text-white tracking-tight">
-              Explorer les Récits <span className="font-serif italic text-[#D9C2A3]">Par Thème</span>
-            </h2>
+            <Reveal direction="down" distance={10}>
+              <span className="text-[11px] uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
+                ✦ ÉDITIONS & RITUELS DE MINUIT
+              </span>
+            </Reveal>
+            <RevealText
+              as="h2"
+              text="Explorer les Récits Par Thème"
+              className="font-sans font-black text-2xl sm:text-4xl text-white tracking-tight"
+            />
           </div>
 
           {/* Onglets capsules */}
@@ -175,7 +182,7 @@ export const InspirationsList: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {paginatedArticles.map((article, index) => {
               const meta = ARTICLE_METAS[index % ARTICLE_METAS.length];
               const imageSrc =
@@ -186,10 +193,10 @@ export const InspirationsList: React.FC = () => {
 
               if (isSpecialHighlight) {
                 return (
-                  <div
-                    key={article.id}
-                    className="group bg-[#0B1528] border border-white/15 rounded-[28px] p-5 flex flex-col justify-between hover:border-[#D9C2A3]/50 transition-all duration-300 shadow-xl relative overflow-hidden"
-                  >
+                  <StaggerItem key={article.id}>
+                    <div
+                      className="group bg-[#0B1528] border border-white/15 rounded-[28px] p-5 flex flex-col justify-between hover:border-[#D9C2A3]/50 transition-all duration-300 shadow-xl relative overflow-hidden h-full"
+                    >
                     {/* En-tête spécial de la carte mise en avant */}
                     <div className="space-y-3 z-10">
                       <div className="flex items-center gap-2">
@@ -246,14 +253,15 @@ export const InspirationsList: React.FC = () => {
                       </button>
                     </div>
                   </div>
-                );
-              }
+                </StaggerItem>
+              );
+            }
 
-              // Cartes standard (Modèle 1, 2, 4 du design de référence)
-              return (
+            // Cartes standard (Modèle 1, 2, 4 du design de référence)
+            return (
+              <StaggerItem key={article.id}>
                 <div
-                  key={article.id}
-                  className="group bg-[#0B1528] border border-white/10 rounded-[28px] p-4 flex flex-col justify-between hover:border-white/25 transition-all duration-300 shadow-xl"
+                  className="group bg-[#0B1528] border border-white/10 rounded-[28px] p-4 flex flex-col justify-between hover:border-white/25 transition-all duration-300 shadow-xl h-full"
                 >
                   {/* Zone Visuelle avec boutons ronds supérieurs ↗ et ♡ */}
                   <div className="relative aspect-[4/4.2] rounded-2xl overflow-hidden bg-[#070D18]">
@@ -330,9 +338,10 @@ export const InspirationsList: React.FC = () => {
                     </div>
                   </div>
                 </div>
+              </StaggerItem>
               );
             })}
-          </div>
+          </Stagger>
         )}
 
         {/* ======================================================== */}
@@ -371,37 +380,43 @@ export const InspirationsList: React.FC = () => {
       {/* ======================================================== */}
       <div className="border-t border-white/10 bg-[#0A1222] py-10 sm:py-12">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#E5A93C] shrink-0">
-                <Icon icon={faTruckFast} className="text-base" />
+          <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <StaggerItem>
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10 h-full">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#E5A93C] shrink-0">
+                  <Icon icon={faTruckFast} className="text-base" />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-white">Livraison Réveillon</h3>
+                  <p className="text-xs text-[#8E95A5] mt-0.5">Expédition suivie garantie avant le 31</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-sm text-white">Livraison Réveillon</h3>
-                <p className="text-xs text-[#8E95A5] mt-0.5">Expédition suivie garantie avant le 31</p>
-              </div>
-            </div>
+            </StaggerItem>
 
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#E5A93C] shrink-0">
-                <Icon icon={faCreditCard} className="text-base" />
+            <StaggerItem>
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10 h-full">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#E5A93C] shrink-0">
+                  <Icon icon={faCreditCard} className="text-base" />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-white">Paiement Flexible</h3>
+                  <p className="text-xs text-[#8E95A5] mt-0.5">Paiement sécurisé ou à la livraison</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-sm text-white">Paiement Flexible</h3>
-                <p className="text-xs text-[#8E95A5] mt-0.5">Paiement sécurisé ou à la livraison</p>
-              </div>
-            </div>
+            </StaggerItem>
 
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#E5A93C] shrink-0">
-                <Icon icon={faHeadset} className="text-base" />
+            <StaggerItem>
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10 h-full">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#E5A93C] shrink-0">
+                  <Icon icon={faHeadset} className="text-base" />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-white">Conciergerie 7j/7</h3>
+                  <p className="text-xs text-[#8E95A5] mt-0.5">Conseils scénographiques en continu</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-sm text-white">Conciergerie 7j/7</h3>
-                <p className="text-xs text-[#8E95A5] mt-0.5">Conseils scénographiques en continu</p>
-              </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </Stagger>
         </div>
       </div>
     </div>

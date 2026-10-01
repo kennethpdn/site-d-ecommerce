@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 import { Icon } from '../components/common/Icon';
 import { getArticleBySlug } from '../lib/supabase';
 import { Article } from '../types';
@@ -104,36 +104,48 @@ export const InspirationsDetail: React.FC = () => {
 
       <article>
         <header className="mb-12">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-3">
-            Carnet de Réveillon
-          </span>
-          <h1 className="title-fluid-section font-display text-[#E8ECEF] mb-6">
-            {article.titre}
-          </h1>
-          <p className="subtitle-editorial text-[#D9C2A3]/90 italic border-l-2 border-[#D9C2A3]/50 pl-4 py-1">
-            {article.extrait}
-          </p>
+          <Reveal direction="down" distance={10}>
+            <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-3">
+              Carnet de Réveillon
+            </span>
+          </Reveal>
+          <RevealText
+            as="h1"
+            text={article.titre}
+            className="title-fluid-section font-display text-[#E8ECEF] mb-6"
+          />
+          <Reveal delay={0.15}>
+            <p className="subtitle-editorial text-[#D9C2A3]/90 italic border-l-2 border-[#D9C2A3]/50 pl-4 py-1">
+              {article.extrait}
+            </p>
+          </Reveal>
         </header>
 
         {is5Gestes ? (
-          <div className="space-y-10 my-10">
+          <Stagger className="space-y-10 my-10">
             {gestes5.map((geste, idx) => (
-              <div key={idx} className="pb-8 border-b border-argent-20/40 last:border-b-0">
-                <h2 className="font-display text-2xl text-[#E8ECEF] mb-3">
-                  {geste.titre}
-                </h2>
-                <p className="text-base text-[#C7CCD1] leading-relaxed">
-                  {geste.texte}
-                </p>
-              </div>
+              <StaggerItem key={idx}>
+                <div className="pb-8 border-b border-argent-20/40 last:border-b-0">
+                  <RevealText
+                    as="h2"
+                    text={geste.titre}
+                    className="font-display text-2xl text-[#E8ECEF] mb-3"
+                  />
+                  <p className="text-base text-[#C7CCD1] leading-relaxed">
+                    {geste.texte}
+                  </p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         ) : (
-          <div className="text-[#C7CCD1] text-base leading-relaxed space-y-6">
-            {article.contenu.split('\n\n').map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          <Reveal delay={0.2}>
+            <div className="text-[#C7CCD1] text-base leading-relaxed space-y-6">
+              {article.contenu.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          </Reveal>
         )}
 
         <div className="mt-16 pt-8 border-t border-argent-20 flex justify-between items-center text-xs text-[#C7CCD1]/60">

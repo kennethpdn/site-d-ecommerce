@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { REVEILLON_TARGET_DATE, DEADLINE_COMMANDE } from '../../config';
+import { MOTION_EASINGS } from '../../motion/tokens';
+import { useReducedMotion } from '../../motion/hooks/useReducedMotion';
 
 interface TimeLeft {
   days: number;
@@ -43,21 +45,27 @@ function calculateTimeLeft(): TimeLeft {
   };
 }
 
-// Chiffre individuel avec glissement vertical fluide et léger flou cinétique
+// Chiffre individuel avec glissement vertical fluide (0.3 s)
 const RollingDigit: React.FC<{ digit: string }> = ({ digit }) => {
+  const prefersReduced = useReducedMotion();
+
   return (
     <div className="relative inline-block h-[1.1em] w-[0.64em] overflow-hidden text-center select-none">
       <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
+        <m.span
           key={digit}
-          initial={{ y: '100%', opacity: 0.15, filter: 'blur(3px)' }}
-          animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-          exit={{ y: '-100%', opacity: 0.15, filter: 'blur(3px)' }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 flex items-center justify-center font-sans font-bold leading-none"
+          initial={prefersReduced ? { opacity: 0 } : { y: '100%', opacity: 0.2 }}
+          animate={prefersReduced ? { opacity: 1 } : { y: '0%', opacity: 1 }}
+          exit={prefersReduced ? { opacity: 0 } : { y: '-100%', opacity: 0.2 }}
+          transition={
+            prefersReduced
+              ? { duration: 0.15 }
+              : { duration: 0.3, ease: MOTION_EASINGS.entrance }
+          }
+          className="absolute inset-0 flex items-center justify-center font-mono tabular-nums font-bold leading-none will-change-transform"
         >
           {digit}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </div>
   );

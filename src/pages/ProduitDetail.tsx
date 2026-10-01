@@ -9,7 +9,7 @@ import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 import { ProductCard } from '../components/shop/ProductCard';
 import { Icon } from '../components/common/Icon';
 import { getProduitBySlug, getProduits, getUniversList } from '../lib/supabase';
@@ -217,9 +217,11 @@ export const ProduitDetail: React.FC = () => {
               </span>
             )}
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-[#E8ECEF] mt-2 mb-3">
-              {produit.nom}
-            </h1>
+            <RevealText
+              as="h1"
+              text={produit.nom}
+              className="font-display text-3xl sm:text-4xl lg:text-5xl text-[#E8ECEF] mt-2 mb-3"
+            />
 
             <div className="flex items-baseline gap-4 mb-4">
               <span className="font-mono text-2xl sm:text-3xl text-[#D9C2A3] font-medium tabular-nums">
@@ -412,14 +414,18 @@ export const ProduitDetail: React.FC = () => {
       {/* --- PRODUITS ASSOCIÉS EN BAS --- */}
       {produitsAssocies.length > 0 && (
         <div className="pt-16">
-          <h2 className="text-xs uppercase tracking-[0.2em] text-[#D9C2A3] font-mono mb-8">
-            Pièces en accord
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <RevealText
+            as="h2"
+            text="Pièces en accord"
+            className="text-xs uppercase tracking-[0.2em] text-[#D9C2A3] font-mono mb-8"
+          />
+          <Stagger className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {produitsAssocies.map((item) => (
-              <ProductCard key={item.id} produit={item} />
+              <StaggerItem key={item.id}>
+                <ProductCard produit={item} />
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       )}
 

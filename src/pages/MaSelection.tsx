@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { faPlus, faMinus, faTrash, faArrowRight, faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 import { SectionTitle } from '../components/common/SectionTitle';
 import { Button } from '../components/common/Button';
 import { Icon } from '../components/common/Icon';
@@ -51,9 +51,11 @@ export const MaSelection: React.FC = () => {
           <div className="w-16 h-16 border border-argent-20 flex items-center justify-center mx-auto mb-6 text-[#D9C2A3]">
             <Icon icon={faBagShopping} className="text-xl" />
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl text-[#E8ECEF] mb-3">
-            Votre sélection est vide.
-          </h2>
+          <RevealText
+            as="h2"
+            text="Votre sélection est vide."
+            className="font-display text-2xl sm:text-3xl text-[#E8ECEF] mb-3"
+          />
           <p className="text-sm text-[#C7CCD1] leading-relaxed mb-8">
             Votre sélection est vide. Commencez par l'un de nos univers.
           </p>
@@ -78,84 +80,85 @@ export const MaSelection: React.FC = () => {
               </button>
             </div>
 
-            <div className="divide-y divide-argent-20/40">
+            <Stagger className="divide-y divide-argent-20/40">
               {detailedItems.map(({ produit_id, quantite, produit }) => (
-                <div key={produit_id} className="py-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
-                  <div className="flex gap-4 items-center">
-                    <div className="w-20 h-24 bg-[#14294A] border border-argent-20 shrink-0 relative overflow-hidden flex items-center justify-center">
-                      {produit?.images && produit.images[0] ? (
-                        <img
-                          src={produit.images[0]}
-                          alt={produit.nom}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 halo-champagne opacity-60 flex items-center justify-center">
-                          <span className="font-display text-xs text-[#D9C2A3]">MM</span>
-                        </div>
-                      )}
+                <StaggerItem key={produit_id}>
+                  <div className="py-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
+                    <div className="flex gap-4 items-center">
+                      <div className="w-20 h-24 bg-[#14294A] border border-argent-20 shrink-0 relative overflow-hidden flex items-center justify-center">
+                        {produit?.images && produit.images[0] ? (
+                          <img
+                            src={produit.images[0]}
+                            alt={produit.nom}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 halo-champagne opacity-60 flex items-center justify-center">
+                            <span className="font-display text-xs text-[#D9C2A3]">MM</span>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <Link
+                          to={`/produit/${produit?.slug || ''}`}
+                          className="font-display text-xl text-[#E8ECEF] hover:text-[#D9C2A3] transition-colors"
+                        >
+                          {produit?.nom || 'Pièce artisanale'}
+                        </Link>
+                        <p className="font-mono text-xs text-[#D9C2A3] mt-1 tabular-nums">
+                          {formatPrix(produit?.prix)}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <Link
-                        to={`/produit/${produit?.slug || ''}`}
-                        className="font-display text-xl text-[#E8ECEF] hover:text-[#D9C2A3] transition-colors"
-                      >
-                        {produit?.nom || 'Pièce artisanale'}
-                      </Link>
-                      <p className="font-mono text-xs text-[#D9C2A3] mt-1 tabular-nums">
-                        {formatPrix(produit?.prix)}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="flex items-center justify-between w-full sm:w-auto gap-6">
-                    {/* Contrôleur quantité */}
-                    <div className="flex items-center border border-argent-20 bg-[#060F1F]">
-                      <button
-                        type="button"
-                        onClick={() => updateQuantity(produit_id, quantite - 1)}
-                        className="w-8 h-8 flex items-center justify-center text-[#C7CCD1] hover:text-[#E8ECEF] cursor-pointer"
-                        aria-label="Diminuer la quantité"
-                      >
-                        <Icon icon={faMinus} className="text-xs" />
-                      </button>
-                      <span className="w-10 text-center font-mono text-xs text-[#E8ECEF] tabular-nums">
-                        {quantite}
+                    <div className="flex items-center justify-between w-full sm:w-auto gap-6">
+                      {/* Contrôleur quantité */}
+                      <div className="flex items-center border border-argent-20 bg-[#060F1F]">
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(produit_id, quantite - 1)}
+                          className="w-8 h-8 flex items-center justify-center text-[#C7CCD1] hover:text-[#E8ECEF] cursor-pointer"
+                          aria-label="Diminuer la quantité"
+                        >
+                          <Icon icon={faMinus} className="text-xs" />
+                        </button>
+                        <span className="w-10 text-center font-mono text-xs text-[#E8ECEF] tabular-nums">
+                          {quantite}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(produit_id, quantite + 1)}
+                          className="w-8 h-8 flex items-center justify-center text-[#C7CCD1] hover:text-[#E8ECEF] cursor-pointer"
+                          aria-label="Augmenter la quantité"
+                        >
+                          <Icon icon={faPlus} className="text-xs" />
+                        </button>
+                      </div>
+
+                      <span className="font-mono text-sm text-[#E8ECEF] min-w-[80px] text-right tabular-nums">
+                        {formatPrix((produit?.prix || 0) * quantite)}
                       </span>
+
                       <button
                         type="button"
-                        onClick={() => updateQuantity(produit_id, quantite + 1)}
-                        className="w-8 h-8 flex items-center justify-center text-[#C7CCD1] hover:text-[#E8ECEF] cursor-pointer"
-                        aria-label="Augmenter la quantité"
+                        onClick={() => removeItem(produit_id)}
+                        className="text-[#C7CCD1]/40 hover:text-[#C1121F] p-2 transition-colors cursor-pointer"
+                        aria-label="Supprimer cet article"
                       >
-                        <Icon icon={faPlus} className="text-xs" />
+                        <Icon icon={faTrash} className="text-xs" />
                       </button>
                     </div>
-
-                    <span className="font-mono text-sm text-[#E8ECEF] min-w-[80px] text-right tabular-nums">
-                      {formatPrix((produit?.prix || 0) * quantite)}
-                    </span>
-
-                    <button
-                      type="button"
-                      onClick={() => removeItem(produit_id)}
-                      className="text-[#C7CCD1]/40 hover:text-[#C1121F] p-2 transition-colors cursor-pointer"
-                      aria-label="Supprimer cet article"
-                    >
-                      <Icon icon={faTrash} className="text-xs" />
-                    </button>
                   </div>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
 
           {/* Récapitulatif commande */}
           <div className="lg:col-span-4">
-            <div className="p-8 bg-[#14294A] border border-argent-20 space-y-6">
-              <h3 className="font-display text-2xl text-[#E8ECEF]">
-                Récapitulatif
-              </h3>
+            <Reveal delay={0.15}>
+              <div className="p-8 bg-[#14294A] border border-argent-20 space-y-6">
+                <RevealText as="h3" text="Récapitulatif" className="font-display text-2xl text-[#E8ECEF]" />
 
               <div className="space-y-3 text-xs text-[#C7CCD1] pb-6 border-b border-argent-20/60">
                 <div className="flex justify-between">
@@ -190,6 +193,7 @@ export const MaSelection: React.FC = () => {
                 Paiement sécurisé et vérification manuelle de chaque colis avant expédition pour le 31 décembre.
               </p>
             </div>
+            </Reveal>
           </div>
         </div>
       )}

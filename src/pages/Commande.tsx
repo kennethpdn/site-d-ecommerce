@@ -4,7 +4,7 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faShieldHalved, faSpinner, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
 import { SectionTitle } from '../components/common/SectionTitle';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText } from '../motion';
 import { Icon } from '../components/common/Icon';
 import { useCart } from '../context/CartContext';
 import { SEED_PRODUITS } from '../data/seed';
@@ -140,7 +140,11 @@ export const Commande: React.FC = () => {
   if (detailedItems.length === 0) {
     return (
       <div className="py-24 text-center max-w-[1200px] mx-auto px-5">
-        <h1 className="font-display text-3xl text-[#E8ECEF] mb-4">Votre sélection est vide.</h1>
+        <RevealText
+          as="h1"
+          text="Votre sélection est vide."
+          className="font-display text-3xl text-[#E8ECEF] mb-4"
+        />
         <p className="text-sm text-[#C7CCD1] mb-8">
           Commencez par l'un de nos univers pour composer votre soirée.
         </p>

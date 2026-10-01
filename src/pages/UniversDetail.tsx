@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 import { ProductCard } from '../components/shop/ProductCard';
 import { KitCard } from '../components/shop/KitCard';
 import { Icon } from '../components/common/Icon';
@@ -115,18 +115,24 @@ export const UniversDetail: React.FC = () => {
           </Link>
 
           <div className="max-w-3xl">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
-              Univers 0{univers.ordre}
-            </span>
-            <h1 className="title-fluid-section font-display text-[#E8ECEF] mb-4">
-              {univers.nom}
-            </h1>
-            <p className="subtitle-editorial text-[#D9C2A3] mb-6">
-              {univers.accroche}
-            </p>
-            <p className="text-base sm:text-lg text-[#C7CCD1] leading-relaxed">
-              {univers.description}
-            </p>
+            <Reveal direction="down" distance={10}>
+              <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
+                Univers 0{univers.ordre}
+              </span>
+            </Reveal>
+            <RevealText
+              as="h1"
+              text={univers.nom}
+              className="title-fluid-section font-display text-[#E8ECEF] mb-4"
+            />
+            <Reveal delay={0.15}>
+              <p className="subtitle-editorial text-[#D9C2A3] mb-6">
+                {univers.accroche}
+              </p>
+              <p className="text-base sm:text-lg text-[#C7CCD1] leading-relaxed">
+                {univers.description}
+              </p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -142,28 +148,32 @@ export const UniversDetail: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {produits.map((produit, idx) => (
-            <Reveal key={produit.id} staggerIndex={idx}>
+        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {produits.map((produit) => (
+            <StaggerItem key={produit.id}>
               <ProductCard produit={produit} />
-            </Reveal>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
 
         {/* --- KIT LIÉ À CET UNIVERS (SI DISPONIBLE) --- */}
         {kitLie && (
           <div className="mt-20 pt-16 border-t border-argent-20/60">
             <div className="mb-8">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
-                Composition prête à poser
-              </span>
-              <h2 className="font-display text-3xl text-[#E8ECEF]">
-                L’ensemble dédié : {kitLie.nom}
-              </h2>
+              <Reveal direction="down" distance={10}>
+                <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
+                  Composition prête à poser
+                </span>
+              </Reveal>
+              <RevealText
+                as="h2"
+                text={`L’ensemble dédié : ${kitLie.nom}`}
+                className="font-display text-3xl text-[#E8ECEF]"
+              />
             </div>
-            <div className="max-w-xl">
+            <Reveal delay={0.2} className="max-w-xl">
               <KitCard kit={kitLie} />
-            </div>
+            </Reveal>
           </div>
         )}
 

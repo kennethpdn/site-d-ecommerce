@@ -1,5 +1,6 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m } from 'framer-motion';
+import { useReducedMotion } from '../../motion/hooks/useReducedMotion';
 
 export const HeroVisual: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -10,7 +11,7 @@ export const HeroVisual: React.FC = () => {
       <div className="absolute inset-0 bg-[#060F1F]" />
 
       {/* Ambiance cinématographique avec zoom très lent (20s) */}
-      <motion.div
+      <m.div
         animate={
           shouldReduceMotion
             ? {}
@@ -103,7 +104,7 @@ export const HeroVisual: React.FC = () => {
 
         {/* Silhouette évocatrice de table de fête au premier plan bas (verrerie et cierge en ombre douce) */}
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#060F1F] via-[#060F1F]/80 to-transparent" />
-      </motion.div>
+      </m.div>
 
       {/* Trame géométrique texturée anti-banding */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(199,204,209,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(199,204,209,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none" />

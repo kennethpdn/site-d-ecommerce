@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SEO } from '../components/common/SEO';
 import { SectionTitle } from '../components/common/SectionTitle';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 import { Button } from '../components/common/Button';
 import { Icon } from '../components/common/Icon';
 import {
@@ -87,50 +87,56 @@ export const Aide: React.FC = () => {
       </Reveal>
 
       {/* Accordéon FAQ */}
-      <div className="divide-y divide-argent-20/60 border-y border-argent-20/60 mb-16">
+      <Stagger className="divide-y divide-argent-20/60 border-y border-argent-20/60 mb-16">
         {faqs.map((faq) => {
           const isOpen = openId === faq.id;
           return (
-            <div key={faq.id} className="py-5">
-              <button
-                type="button"
-                onClick={() => toggle(faq.id)}
-                className="w-full flex items-center justify-between text-left group cursor-pointer focus:outline-none"
-              >
-                <span className="font-display text-xl sm:text-2xl text-[#E8ECEF] group-hover:text-[#D9C2A3] transition-colors pr-4">
-                  {faq.question}
-                </span>
-                <Icon
-                  icon={faChevronDown}
-                  className={`text-xs text-[#D9C2A3] transition-transform duration-300 shrink-0 ${
-                    isOpen ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
+            <StaggerItem key={faq.id}>
+              <div className="py-5">
+                <button
+                  type="button"
+                  onClick={() => toggle(faq.id)}
+                  className="w-full flex items-center justify-between text-left group cursor-pointer focus:outline-none"
+                >
+                  <span className="font-display text-xl sm:text-2xl text-[#E8ECEF] group-hover:text-[#D9C2A3] transition-colors pr-4">
+                    {faq.question}
+                  </span>
+                  <Icon
+                    icon={faChevronDown}
+                    className={`text-xs text-[#D9C2A3] transition-transform duration-300 shrink-0 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
 
-              {isOpen && (
-                <div className="mt-4 text-sm text-[#C7CCD1] leading-relaxed pr-8">
-                  {faq.reponse}
-                </div>
-              )}
-            </div>
+                {isOpen && (
+                  <div className="mt-4 text-sm text-[#C7CCD1] leading-relaxed pr-8">
+                    {faq.reponse}
+                  </div>
+                )}
+              </div>
+            </StaggerItem>
           );
         })}
-      </div>
+      </Stagger>
 
-      <div className="text-center p-8 bg-[#060F1F] border border-argent-20">
-        <h3 className="font-display text-2xl text-[#E8ECEF] mb-3">
-          Une question particulière ?
-        </h3>
-        <p className="text-sm text-[#C7CCD1] mb-6">
-          Notre équipe de conciergerie vous répond pour ajuster vos préparatifs.
-        </p>
-        <Link to="/contact">
-          <Button variant="solid" size="md">
-            Écrire à la conciergerie
-          </Button>
-        </Link>
-      </div>
+      <Reveal delay={0.15}>
+        <div className="text-center p-8 bg-[#060F1F] border border-argent-20">
+          <RevealText
+            as="h3"
+            text="Une question particulière ?"
+            className="font-display text-2xl text-[#E8ECEF] mb-3"
+          />
+          <p className="text-sm text-[#C7CCD1] mb-6">
+            Notre équipe de conciergerie vous répond pour ajuster vos préparatifs.
+          </p>
+          <Link to="/contact">
+            <Button variant="solid" size="md">
+              Écrire à la conciergerie
+            </Button>
+          </Link>
+        </div>
+      </Reveal>
     </div>
   );
 };

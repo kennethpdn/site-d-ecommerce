@@ -1,7 +1,6 @@
-import React from 'react';
+import { Reveal, RevealText } from '../motion';
 import { useLocation, Link } from 'react-router-dom';
 import { SEO } from '../components/common/SEO';
-import { Reveal } from '../components/common/Reveal';
 
 export const Legal: React.FC = () => {
   const { pathname } = useLocation();
@@ -102,14 +101,16 @@ export const Legal: React.FC = () => {
         <span className="text-xs uppercase tracking-[0.25em] text-[#D9C2A3] font-mono block mb-2">
           {info.kicker}
         </span>
-        <h1 className="title-fluid-section font-display text-[#E8ECEF] mb-10">
-          {info.title}
-        </h1>
+        <RevealText
+          as="h1"
+          text={info.title}
+          className="title-fluid-section font-display text-[#E8ECEF] mb-10"
+        />
 
         <div className="space-y-8 text-sm text-[#C7CCD1] leading-relaxed">
           {info.content.map((item, idx) => (
             <div key={idx} className="space-y-2 pb-6 border-b border-argent-20/40 last:border-b-0">
-              <h2 className="font-display text-xl text-[#E8ECEF]">{item.h}</h2>
+              <RevealText as="h2" text={item.h} className="font-display text-xl text-[#E8ECEF]" />
               <p>{item.p}</p>
             </div>
           ))}

@@ -85,31 +85,33 @@ body {
   border-color: rgba(199, 204, 209, 0.2);
 }
 
-/* Balayage boutons */
+/* Balayage boutons (0.4 s fill sweep on hover) */
 .btn-sweep {
   position: relative;
   overflow: hidden;
-  z-index: 1;
-  transition: color 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  isolation: isolate;
+  transition: color 400ms cubic-bezier(0.22, 1, 0.36, 1), border-color 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-sweep::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: currentColor;
+  inset: 0;
+  background: #0B1B33;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: -1;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .btn-sweep:hover::before {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.btn-sweep-outline::before {
+  background: #E8ECEF;
 }
 
 /* Scrollbar discrète */
@@ -162,4 +164,102 @@ body {
     animation: none !important;
   }
 }
+
+/* Zoom lent d'arrière plan du Hero 1.05 -> 1.15 sur 24s en CSS pur */
+@keyframes heroBackgroundZoom {
+  0%, 100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.hero-zoom-bg {
+  animation: heroBackgroundZoom 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom-bg {
+    animation: none !important;
+  }
+}
+
+/* Liens Footer avec soulignement glissant (sliding underline) */
+.footer-link-underline {
+  position: relative;
+  display: inline-block;
+}
+.footer-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #D9C2A3;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.footer-link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* ========================================================= */
+/* LENIS SMOOTH SCROLL STYLES                                */
+/* ========================================================= */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ========================================================= */
+/* CSS MARQUEE KEYFRAMES (ZERO JS RUNTIME OVERHEAD)          */
+/* ========================================================= */
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Désactivation des animations de défilement continu sur préférence de réduction de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-left,
+  .marquee-right,
+  [class*="marquee"],
+  [style*="marquee"] {
+    animation: none !important;
+  }
+}
+
 

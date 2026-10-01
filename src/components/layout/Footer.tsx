@@ -11,6 +11,7 @@ import { faBolt, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../common/Icon';
 import { SEED_UNIVERS } from '../../data/seed';
 import { inscrireNewsletter } from '../../lib/supabase';
+import { Reveal } from '../../motion';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -37,12 +38,13 @@ export const Footer: React.FC = () => {
     <footer className="w-full bg-[#060F1F] text-[#C7CCD1] pt-12 md:pt-16 pb-12 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-5 md:px-8">
         {/* --- BANNIÈRE NEWSLETTER ARRONDIR STYLE MODERNE --- */}
-        <div className="relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-r from-[#D9A74A] via-[#E5B558] to-[#C99638] text-[#060F1F] p-8 sm:p-12 lg:p-14 shadow-2xl overflow-hidden">
-          {/* Lueur d'ambiance intérieure */}
-          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-white/20 filter blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-black/10 filter blur-3xl pointer-events-none" />
+        <Reveal distance={24} duration={0.6}>
+          <div className="relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-r from-[#D9A74A] via-[#E5B558] to-[#C99638] text-[#060F1F] p-8 sm:p-12 lg:p-14 shadow-2xl overflow-hidden">
+            {/* Lueur d'ambiance intérieure */}
+            <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-white/20 filter blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-black/10 filter blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Colonne gauche : Titre et sous-titre */}
             <div className="lg:col-span-6 space-y-2">
               <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-bold tracking-tight text-[#060F1F] leading-tight">
@@ -91,6 +93,7 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div>
+        </Reveal>
 
         {/* --- SECTION BASSE DU FOOTER --- */}
         <div className="mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8 pb-12">
@@ -160,7 +163,7 @@ export const Footer: React.FC = () => {
                 <li key={u.id}>
                   <Link
                     to={`/univers/${u.slug}`}
-                    className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors"
+                    className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline"
                   >
                     {u.nom}
                   </Link>
@@ -176,22 +179,22 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/boutique" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/boutique" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Boutique
                 </Link>
               </li>
               <li>
-                <Link to="/inspirations" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/inspirations" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Inspirations
                 </Link>
               </li>
               <li>
-                <Link to="/atelier" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/atelier" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   L’Atelier
                 </Link>
               </li>
               <li>
-                <Link to="/univers" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/univers" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Tous les univers
                 </Link>
               </li>
@@ -205,22 +208,22 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/aide" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/aide" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Centre d’Aide
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/contact" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link to="/aide" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/aide" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Livraison Réveillon
                 </Link>
               </li>
               <li>
-                <Link to="/aide" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/aide" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Retours & Échanges
                 </Link>
               </li>
@@ -234,22 +237,22 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/confidentialite" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/confidentialite" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Confidentialité
                 </Link>
               </li>
               <li>
-                <Link to="/cgv" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/cgv" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Conditions Générales
                 </Link>
               </li>
               <li>
-                <Link to="/mentions-legales" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/mentions-legales" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Mentions Légales
                 </Link>
               </li>
               <li>
-                <Link to="/cookies" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors">
+                <Link to="/cookies" className="text-[#C7CCD1] hover:text-[#E8ECEF] transition-colors footer-link-underline">
                   Gestion des Cookies
                 </Link>
               </li>

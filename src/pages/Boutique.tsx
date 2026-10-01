@@ -23,6 +23,7 @@ import { Produit, Univers } from '../types';
 import { formatPrix } from '../config';
 import { useCart } from '../context/CartContext';
 import { DiningTableVisual45 } from '../components/common/DiningTableVisual45';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 
 // Catégories décoratives pour le filtre gauche
 const CATEGORIES_FILTERS = [
@@ -211,9 +212,11 @@ export const Boutique: React.FC = () => {
         </div>
 
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 text-center space-y-3 relative z-10">
-          <h1 className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-white">
-            La Boutique
-          </h1>
+          <RevealText
+            as="h1"
+            text="La Boutique"
+            className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-white"
+          />
           <nav className="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-[#8E95A5]">
             <Link to="/" className="hover:text-white transition-colors">
               Accueil
@@ -551,7 +554,7 @@ export const Boutique: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {paginatedProduits.map((produit, index) => {
                   const isWishlisted = wishlist.includes(produit.id);
                   const isDiscounted = index % 3 === 0;
@@ -559,129 +562,130 @@ export const Boutique: React.FC = () => {
                   const slashedPrice = isDiscounted ? Math.round(produit.prix * 1.35) : null;
 
                   return (
-                    <div
-                      key={produit.id}
-                      className="group bg-[#0D182E] border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-white/25 transition-all duration-300 shadow-lg hover:shadow-2xl"
-                    >
-                      {/* Zone Image avec actions flottantes */}
-                      <div className="relative aspect-[4/5] bg-[#0A1222] overflow-hidden">
-                        {/* Badge de remise en haut à gauche (style capsule vert/sombre comme sur l'image) */}
-                        {discountPercent ? (
-                          <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-[#1B3A2B] border border-[#2E5E46] text-[#6EE7B7] text-[11px] font-bold tracking-wide shadow-md">
-                            {discountPercent}% OFF
-                          </div>
-                        ) : produit.populaire ? (
-                          <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-[#D9C2A3] text-[#080E1A] text-[10px] font-bold uppercase tracking-wider shadow-md">
-                            Bestseller
-                          </div>
-                        ) : null}
-
-                        {/* Boutons d'action flottants à droite (Favori, Vue rapide, Ajout Panier) */}
-                        <div className="absolute top-3 right-3 z-20 flex flex-col gap-2 transition-all duration-300 opacity-90 sm:opacity-0 sm:group-hover:opacity-100">
-                          {/* Favori Wishlist */}
-                          <button
-                            type="button"
-                            onClick={(e) => toggleWishlist(produit.id, e)}
-                            className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors shadow-md cursor-pointer ${
-                              isWishlisted
-                                ? 'bg-[#C1121F] text-white'
-                                : 'bg-black/60 backdrop-blur-md text-white/80 hover:text-white hover:bg-black/80'
-                            }`}
-                            title="Ajouter aux favoris"
-                          >
-                            <Icon icon={isWishlisted ? faHeartSolid : faHeartRegular} className="text-xs" />
-                          </button>
-
-                          {/* Aperçu rapide */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setQuickViewProduct(produit);
-                            }}
-                            className="w-9 h-9 rounded-full bg-black/60 backdrop-blur-md text-white/80 hover:text-white hover:bg-black/80 flex items-center justify-center transition-colors shadow-md cursor-pointer"
-                            title="Aperçu rapide"
-                          >
-                            <Icon icon={faEye} className="text-xs" />
-                          </button>
-
-                          {/* Ajout panier immédiat */}
-                          <button
-                            type="button"
-                            onClick={(e) => handleQuickAdd(produit, e)}
-                            className="w-9 h-9 rounded-full bg-black/60 backdrop-blur-md text-white/80 hover:text-white hover:bg-black/80 flex items-center justify-center transition-colors shadow-md cursor-pointer"
-                            title="Ajouter à ma sélection"
-                          >
-                            <Icon icon={faBagShopping} className="text-xs" />
-                          </button>
-                        </div>
-
-                        {/* Image produit ou fallback 4:5 cinématique */}
-                        <Link to={`/produit/${produit.slug}`} className="block w-full h-full">
-                          {produit.images && produit.images[0] ? (
-                            <img
-                              src={produit.images[0]}
-                              alt={produit.nom}
-                              loading="lazy"
-                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                            />
-                          ) : (
-                            <DiningTableVisual45 subtleLabel={produit.nom} />
-                          )}
-                        </Link>
-                      </div>
-
-                      {/* Informations Produit sous l'image */}
-                      <div className="p-5 flex flex-col justify-between flex-1 space-y-3">
-                        <div className="space-y-1.5">
-                          {/* Ligne Catégorie + Note Étoile */}
-                          <div className="flex items-center justify-between text-xs text-[#8E95A5]">
-                            <span className="uppercase tracking-widest text-[10px]">
-                              {produit.matieres ? produit.matieres.split(',')[0] : 'Édition Minuit'}
-                            </span>
-                            <div className="flex items-center gap-1 text-amber-400 font-bold text-xs">
-                              <Icon icon={faStar} className="text-[10px]" />
-                              <span>4.{8 + (index % 3)}</span>
+                    <StaggerItem key={produit.id}>
+                      <div
+                        className="group bg-[#0D182E] border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-white/25 transition-all duration-300 shadow-lg hover:shadow-2xl h-full"
+                      >
+                        {/* Zone Image avec actions flottantes */}
+                        <div className="relative aspect-[4/5] bg-[#0A1222] overflow-hidden">
+                          {/* Badge de remise en haut à gauche (style capsule vert/sombre comme sur l'image) */}
+                          {discountPercent ? (
+                            <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-[#1B3A2B] border border-[#2E5E46] text-[#6EE7B7] text-[11px] font-bold tracking-wide shadow-md">
+                              {discountPercent}% OFF
                             </div>
+                          ) : produit.populaire ? (
+                            <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-[#D9C2A3] text-[#080E1A] text-[10px] font-bold uppercase tracking-wider shadow-md">
+                              Bestseller
+                            </div>
+                          ) : null}
+
+                          {/* Boutons d'action flottants à droite (Favori, Vue rapide, Ajout Panier) */}
+                          <div className="absolute top-3 right-3 z-20 flex flex-col gap-2 transition-all duration-300 opacity-90 sm:opacity-0 sm:group-hover:opacity-100">
+                            {/* Favori Wishlist */}
+                            <button
+                              type="button"
+                              onClick={(e) => toggleWishlist(produit.id, e)}
+                              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors shadow-md cursor-pointer ${
+                                isWishlisted
+                                  ? 'bg-[#C1121F] text-white'
+                                  : 'bg-black/60 backdrop-blur-md text-white/80 hover:text-white hover:bg-black/80'
+                              }`}
+                              title="Ajouter aux favoris"
+                            >
+                              <Icon icon={isWishlisted ? faHeartSolid : faHeartRegular} className="text-xs" />
+                            </button>
+
+                            {/* Aperçu rapide */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setQuickViewProduct(produit);
+                              }}
+                              className="w-9 h-9 rounded-full bg-black/60 backdrop-blur-md text-white/80 hover:text-white hover:bg-black/80 flex items-center justify-center transition-colors shadow-md cursor-pointer"
+                              title="Aperçu rapide"
+                            >
+                              <Icon icon={faEye} className="text-xs" />
+                            </button>
+
+                            {/* Ajout panier immédiat */}
+                            <button
+                              type="button"
+                              onClick={(e) => handleQuickAdd(produit, e)}
+                              className="w-9 h-9 rounded-full bg-black/60 backdrop-blur-md text-white/80 hover:text-white hover:bg-black/80 flex items-center justify-center transition-colors shadow-md cursor-pointer"
+                              title="Ajouter à ma sélection"
+                            >
+                              <Icon icon={faBagShopping} className="text-xs" />
+                            </button>
                           </div>
 
-                          {/* Titre du Produit cliquable */}
-                          <Link
-                            to={`/produit/${produit.slug}`}
-                            className="block font-sans font-bold text-base text-white hover:text-[#D9C2A3] transition-colors leading-snug line-clamp-1"
-                          >
-                            {produit.nom}
+                          {/* Image produit ou fallback 4:5 cinématique */}
+                          <Link to={`/produit/${produit.slug}`} className="block w-full h-full">
+                            {produit.images && produit.images[0] ? (
+                              <img
+                                src={produit.images[0]}
+                                alt={produit.nom}
+                                loading="lazy"
+                                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                              />
+                            ) : (
+                              <DiningTableVisual45 subtleLabel={produit.nom} />
+                            )}
                           </Link>
                         </div>
 
-                        {/* Prix : Prix actuel + Prix barré */}
-                        <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                          <div className="flex items-baseline gap-2">
-                            <span className="font-sans font-bold text-base text-white">
-                              {formatPrix(produit.prix)}
-                            </span>
-                            {slashedPrice && (
-                              <span className="font-mono text-xs text-[#8E95A5] line-through">
-                                {formatPrix(slashedPrice)}
+                        {/* Informations Produit sous l'image */}
+                        <div className="p-5 flex flex-col justify-between flex-1 space-y-3">
+                          <div className="space-y-1.5">
+                            {/* Ligne Catégorie + Note Étoile */}
+                            <div className="flex items-center justify-between text-xs text-[#8E95A5]">
+                              <span className="uppercase tracking-widest text-[10px]">
+                                {produit.matieres ? produit.matieres.split(',')[0] : 'Édition Minuit'}
                               </span>
-                            )}
+                              <div className="flex items-center gap-1 text-amber-400 font-bold text-xs">
+                                <Icon icon={faStar} className="text-[10px]" />
+                                <span>4.{8 + (index % 3)}</span>
+                              </div>
+                            </div>
+
+                            {/* Titre du Produit cliquable */}
+                            <Link
+                              to={`/produit/${produit.slug}`}
+                              className="block font-sans font-bold text-base text-white hover:text-[#D9C2A3] transition-colors leading-snug line-clamp-1"
+                            >
+                              {produit.nom}
+                            </Link>
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={(e) => handleQuickAdd(produit, e)}
-                            className="p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
-                            title="Ajouter à ma sélection"
-                          >
-                            <Icon icon={faBagShopping} className="text-xs" />
-                          </button>
+                          {/* Prix : Prix actuel + Prix barré */}
+                          <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                            <div className="flex items-baseline gap-2">
+                              <span className="font-sans font-bold text-base text-white">
+                                {formatPrix(produit.prix)}
+                              </span>
+                              {slashedPrice && (
+                                <span className="font-mono text-xs text-[#8E95A5] line-through">
+                                  {formatPrix(slashedPrice)}
+                                </span>
+                              )}
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={(e) => handleQuickAdd(produit, e)}
+                              className="p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
+                              title="Ajouter à ma sélection"
+                            >
+                              <Icon icon={faBagShopping} className="text-xs" />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </StaggerItem>
                   );
                 })}
-              </div>
+              </Stagger>
             )}
 
             {/* Pagination Style Moderne : < 1 2 3 ... 10 > */}
@@ -734,40 +738,46 @@ export const Boutique: React.FC = () => {
       {/* ======================================================== */}
       <div className="border-t border-white/10 bg-[#0A1222] py-10 sm:py-12 mt-12">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Colonne 1 : Livraison */}
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
-                <Icon icon={faTruckFast} className="text-base" />
+            <StaggerItem>
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10 h-full">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
+                  <Icon icon={faTruckFast} className="text-base" />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-white">Livraison Réveillon</h3>
+                  <p className="text-xs text-[#8E95A5] mt-0.5">Expédition suivie garantie avant le 31</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-sm text-white">Livraison Réveillon</h3>
-                <p className="text-xs text-[#8E95A5] mt-0.5">Expédition suivie garantie avant le 31</p>
-              </div>
-            </div>
+            </StaggerItem>
 
             {/* Colonne 2 : Paiement Flexible */}
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
-                <Icon icon={faCreditCard} className="text-base" />
+            <StaggerItem>
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10 h-full">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
+                  <Icon icon={faCreditCard} className="text-base" />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-white">Paiement Flexible</h3>
+                  <p className="text-xs text-[#8E95A5] mt-0.5">Paiement sécurisé ou à la livraison</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-sm text-white">Paiement Flexible</h3>
-                <p className="text-xs text-[#8E95A5] mt-0.5">Paiement sécurisé ou à la livraison</p>
-              </div>
-            </div>
+            </StaggerItem>
 
             {/* Colonne 3 : Support Dédié */}
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
-                <Icon icon={faHeadset} className="text-base" />
+            <StaggerItem>
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#0D182E] border border-white/10 h-full">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#D9C2A3] shrink-0">
+                  <Icon icon={faHeadset} className="text-base" />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-white">Conciergerie 7j/7</h3>
+                  <p className="text-xs text-[#8E95A5] mt-0.5">Conseils scénographiques en continu</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-sans font-bold text-sm text-white">Conciergerie 7j/7</h3>
-                <p className="text-xs text-[#8E95A5] mt-0.5">Conseils scénographiques en continu</p>
-              </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </Stagger>
         </div>
       </div>
 

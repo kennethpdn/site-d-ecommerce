@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEO } from '../components/common/SEO';
 import { SectionTitle } from '../components/common/SectionTitle';
-import { Reveal } from '../components/common/Reveal';
+import { Reveal, RevealText, Stagger, StaggerItem } from '../motion';
 
 export const Atelier: React.FC = () => {
   return (
@@ -29,17 +29,19 @@ export const Atelier: React.FC = () => {
         </div>
       </Reveal>
 
-      {/* Les Trois Principes */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-16">
-        <Reveal staggerIndex={0}>
+      {/* Les Trois Principes avec Stagger */}
+      <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-8 my-16">
+        <StaggerItem>
           <div className="p-8 bg-[#14294A] border border-argent-20 h-full flex flex-col justify-between">
             <div>
               <span className="text-xs uppercase tracking-widest text-[#D9C2A3] font-mono block mb-3">
                 Principe 01
               </span>
-              <h3 className="font-display text-2xl text-[#E8ECEF] mb-4">
-                Choisir peu, choisir bien
-              </h3>
+              <RevealText
+                as="h3"
+                text="Choisir peu, choisir bien"
+                className="font-display text-2xl text-[#E8ECEF] mb-4"
+              />
               <p className="text-sm text-[#C7CCD1] leading-relaxed">
                 Une sélection resserrée de pièces durables évite la dispersion visuelle. Chaque objet possède une présence singulière qui structure l’espace sans l’alourdir.
               </p>
@@ -48,17 +50,19 @@ export const Atelier: React.FC = () => {
               Rigueur & Épure
             </div>
           </div>
-        </Reveal>
+        </StaggerItem>
 
-        <Reveal staggerIndex={1}>
+        <StaggerItem>
           <div className="p-8 bg-[#14294A] border border-argent-20 h-full flex flex-col justify-between">
             <div>
               <span className="text-xs uppercase tracking-widest text-[#D9C2A3] font-mono block mb-3">
                 Principe 02
               </span>
-              <h3 className="font-display text-2xl text-[#E8ECEF] mb-4">
-                Composer plutôt qu'empiler
-              </h3>
+              <RevealText
+                as="h3"
+                text="Composer plutôt qu'empiler"
+                className="font-display text-2xl text-[#E8ECEF] mb-4"
+              />
               <p className="text-sm text-[#C7CCD1] leading-relaxed">
                 L’harmonie naît de l’équilibre entre la flamme, le reflet des métaux et la profondeur des étoffes sombres. Nous pensons l’ensemble comme une scène continue.
               </p>
@@ -67,17 +71,19 @@ export const Atelier: React.FC = () => {
               Scénographie Vivante
             </div>
           </div>
-        </Reveal>
+        </StaggerItem>
 
-        <Reveal staggerIndex={2}>
+        <StaggerItem>
           <div className="p-8 bg-[#14294A] border border-argent-20 h-full flex flex-col justify-between">
             <div>
               <span className="text-xs uppercase tracking-widest text-[#D9C2A3] font-mono block mb-3">
                 Principe 03
               </span>
-              <h3 className="font-display text-2xl text-[#E8ECEF] mb-4">
-                Conseiller à chaque étape
-              </h3>
+              <RevealText
+                as="h3"
+                text="Conseiller à chaque étape"
+                className="font-display text-2xl text-[#E8ECEF] mb-4"
+              />
               <p className="text-sm text-[#C7CCD1] leading-relaxed">
                 Du choix du candélabre au calcul de la durée de combustion des cierges, notre conciergerie accompagne vos préparatifs pour une soirée sans imprévu.
               </p>
@@ -86,8 +92,8 @@ export const Atelier: React.FC = () => {
               Accompagnement Dédié
             </div>
           </div>
-        </Reveal>
-      </div>
+        </StaggerItem>
+      </Stagger>
     </div>
   );
 };

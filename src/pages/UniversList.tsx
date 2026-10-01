@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SEO } from '../components/common/SEO';
 import { SectionTitle } from '../components/common/SectionTitle';
 import { UniversTile } from '../components/shop/UniversTile';
-import { Reveal } from '../components/common/Reveal';
+import { Stagger, StaggerItem, Reveal } from '../motion';
 import { getUniversList } from '../lib/supabase';
 import { Univers } from '../types';
 
@@ -28,13 +28,13 @@ export const UniversList: React.FC = () => {
         />
       </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {univers.map((u, idx) => (
-          <Reveal key={u.id} staggerIndex={idx}>
+          <StaggerItem key={u.id}>
             <UniversTile univers={u} index={idx} />
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </div>
   );
 };

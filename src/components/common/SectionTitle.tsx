@@ -1,4 +1,6 @@
 import React from 'react';
+import { RevealText } from '../../motion/RevealText';
+import { Reveal } from '../../motion/Reveal';
 
 interface SectionTitleProps {
   title: string;
@@ -24,19 +26,25 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({
   return (
     <div className={`flex flex-col ${alignmentClass} ${className} mb-12 md:mb-16`}>
       {kicker && (
-        <span className="text-xs tracking-[0.25em] uppercase text-[#D9C2A3] mb-3 font-sans">
-          {kicker}
-        </span>
+        <Reveal direction="down" distance={10} delay={0.05}>
+          <span className="text-xs tracking-[0.25em] uppercase text-[#D9C2A3] mb-3 font-sans block">
+            {kicker}
+          </span>
+        </Reveal>
       )}
 
-      <h2 className="title-fluid-section font-display text-[#E8ECEF] max-w-3xl">
-        {title}
-      </h2>
+      <RevealText
+        as="h2"
+        text={title}
+        className="title-fluid-section font-display text-[#E8ECEF] max-w-3xl"
+      />
 
       {subtitle && (
-        <p className="subtitle-editorial mt-4 max-w-2xl text-[#C7CCD1] leading-relaxed">
-          {subtitle}
-        </p>
+        <Reveal delay={0.15}>
+          <p className="subtitle-editorial mt-4 max-w-2xl text-[#C7CCD1] leading-relaxed">
+            {subtitle}
+          </p>
+        </Reveal>
       )}
 
       <div

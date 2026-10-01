@@ -1,28 +1,34 @@
 import React, { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { faXmark, faPlus, faMinus, faTrash, faArrowRight, faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from '../../context/CartContext';
 import { SEED_PRODUITS } from '../../data/seed';
 import { formatPrix } from '../../config';
 import { Icon } from '../common/Icon';
 import { Button } from '../common/Button';
+import { useLenis } from '../../motion/context/LenisContext';
+import { MOTION_EASINGS } from '../../motion/tokens';
 
 export const CartDrawer: React.FC = () => {
   const { isDrawerOpen, closeDrawer, items, updateQuantity, removeItem } = useCart();
+  const { stop: stopLenis, start: startLenis } = useLenis();
   const navigate = useNavigate();
 
-  // Bloquer le scroll du body quand le tiroir est ouvert
+  // Bloquer le scroll du body et arrêter Lenis quand le tiroir est ouvert
   useEffect(() => {
     if (isDrawerOpen) {
       document.body.style.overflow = 'hidden';
+      stopLenis();
     } else {
       document.body.style.overflow = '';
+      startLenis();
     }
     return () => {
       document.body.style.overflow = '';
+      startLenis();
     };
-  }, [isDrawerOpen]);
+  }, [isDrawerOpen, stopLenis, startLenis]);
 
   // Fermer avec la touche Échap
   useEffect(() => {
@@ -62,22 +68,22 @@ export const CartDrawer: React.FC = () => {
       {isDrawerOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           {/* Voile sombre semi-transparent */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             onClick={closeDrawer}
             className="fixed inset-0 bg-[#060F1F]/80 backdrop-blur-xs cursor-pointer"
             aria-hidden="true"
           />
 
-          {/* Panneau latéral glissant 400ms */}
-          <motion.div
+          {/* Panneau latéral glissant avec token spring stiffness 260 damping 30 */}
+          <m.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ type: 'spring', ...MOTION_EASINGS.spring }}
             className="relative z-10 w-full max-w-md bg-[#0B1B33] border-l border-argent-20 h-full flex flex-col justify-between shadow-2xl"
             role="dialog"
             aria-modal="true"
@@ -234,7 +240,7 @@ export const CartDrawer: React.FC = () => {
                 </div>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>
